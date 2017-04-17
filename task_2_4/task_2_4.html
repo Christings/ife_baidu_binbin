@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        span{
+            display: inline;
+            margin: 10px 5px;
+            padding: 0px 10px;
+            height: 30px;
+            line-height: 30px;
+            background-color: red;
+            cursor: pointer;"
+        }
+    </style>
+</head>
+<body>
+<input id="input">
+
+<button id="left_in">左侧入</button>
+<button id="right_in">右侧入</button>
+<button id="left_out">左侧出</button>
+<button id="right_out">右侧出</button>
+
+<div id="bottom"></div>
+
+<script type="text/javascript">
+    var $ = function (id) {
+        return document.getElementById(id);
+    };
+    var arr = [];
+    var str = "";
+    var input = $("input");
+    var bottomNum = $("bottom");
+    function change() {
+        var leftin = $("left_in");
+        var rightin = $("right_in");
+        var leftout = $("left_out");
+        var rightout = $("right_out");
+        var bottom=$("bottom");
+
+        leftin.onclick = function () {
+            arr.unshift(input.value);
+            arrChange();
+        };
+        rightin.onclick = function () {
+            arr.push(input.value);
+            arrChange();
+        };
+
+        leftout.onclick = function () {
+            arr.shift(input.value);
+            arrChange();
+
+        };
+        rightout.onclick = function () {
+            arr.pop(input.value);
+            arrChange();
+
+        };
+        bottom.onclick=function (e) {
+            e = e || window.event;
+            var t =e.target || e.srcElement;
+            var tagName=t.tagName;
+            if(tagName=="SPAN"){  //span要大写
+                bottom.removeChild(t);
+            }
+        }
+
+    }
+    function arrChange() {
+        for (var i = 0; i < arr.length; i++) {
+            str += "<span class='bottomDiv'>" + arr[i] + "</span>";
+        }
+        bottomNum.innerHTML = str;
+        str = "";
+    }
+    function start() {
+        input.addEventListener('blur', function () {
+            if (!(/^\d+$/.test(input.value))) {
+                alert("输入有误");
+                return;
+            }
+        }, false);
+        change();
+    }
+    start();
+
+
+</script>
+</body>
+</html>
