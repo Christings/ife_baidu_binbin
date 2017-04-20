@@ -27,7 +27,7 @@
 <button id="sort">排序</button>
 <input type="text" id="data">
 <button id="match">查询</button>
-<ul id="display"></ul>
+<ul id="display" style="list-style-type: none"></ul>
 <!--队列-->
 <div id="queue"></div>
 <script type="text/javascript">
@@ -102,12 +102,11 @@
         var reg = new RegExp(data);
         for (var i = 0; i < value.length; i++) {
             if (value[i].match(reg)) {
-                value[i].childNodes.style.color="red";
+                var li = document.createElement("li");
+                li.innerHTML = value[i];
+                li.style.color="red";
+                $("display").appendChild(li);
             }
-//                value[i].style.color="red";
-//                var li=document.createElement("li");
-//                li.innerHTML=value[i];
-//                $("display").appendChild(li);
         }
     }
     //验证数字
