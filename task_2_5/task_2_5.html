@@ -35,7 +35,8 @@
         var num = $("num").value;
         if (checkInput(num)) {
             var span = document.createElement("span");
-            span.style.height=parseInt(num)+parseInt(20)+"px";
+//            span.style.height=parseInt(num)+parseInt(20)+"px";
+            span.style.height=num*2+"px";
             span.innerHTML = num;
             var spanlist = queue.childNodes;
             if(queue.childElementCount<60){
@@ -43,7 +44,6 @@
             }else {
                 alert("最多插入60个子节点！");
             }
-            sortQueue(queue);
         }
     }
     //右侧入，把input中的数字从右侧插入队列
@@ -51,7 +51,8 @@
         var num = $("num").value;
         if (checkInput(num)) {
             var span = document.createElement("span");
-            span.style.height=parseInt(num)+parseInt(20)+"px";
+//            span.style.height=parseInt(num)+parseInt(20)+"px";
+            span.style.height=num*2+"px";
             span.innerHTML = num;
             if(queue.childElementCount<60){
                 queue.appendChild(span);
@@ -75,15 +76,19 @@
     //排序
     function sortQueue(queue) {
         var spanlist=queue.childNodes;
+        var data=[];
         for(var i=0;i<queue.childElementCount;i++){
-            for(var j=0;j<queue.childElementCount;j++){
-                if(spanlist[i]>spanlist[j]){
-                    var temp=spanlist[i];
-                    spanlist[i]=spanlist[j];
-                    spanlist[j]=temp;
-                }
-            }
+            var temp=spanlist[i].childNodes[0].nodeValue;//不能是spanlist[i].nodeValue
+            data.push(temp);
         }
+        data.sort(function (a,b) {
+            return a-b;
+        });
+        for(var j=0;j<data.length;j++){
+            spanlist[j].innerHTML=data[j];
+            spanlist[j].style.height=data[j]*2+"px";
+        }
+        return spanlist;
     }
     //验证数字
     function checkInput(num) {
